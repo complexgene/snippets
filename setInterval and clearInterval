@@ -1,0 +1,21 @@
+function App() {
+  const [count, setCount] = useState(5);
+  useEffect(() => {
+    console.log("Hi");
+    var p = setInterval(() => {
+      // Below line check if the countdown has reached 0 or not, then clears the final interval and returns with no state change anymore.
+      if (count === 0) {
+        clearInterval(p);
+        return;
+      }
+      // Decrement the count & as useEffect tracks count hence on change of count it gets re-rendered again after unmount.
+      setCount((count) => count - 1);
+      
+    }, 1000);
+    // Clears the last interval on unmount action
+    return () => {
+      clearInterval(p);
+    };
+  }, [count]);
+  return <div>{count}</div>;
+}
